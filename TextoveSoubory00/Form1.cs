@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Soubory
 {
     public partial class Form1 : Form
     {
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +18,7 @@ namespace Soubory
         //zpracovávat text, práci nám usnadní použití speciálních streamů určených právě jen pro textové soubory: 
         //          StreamWriter 
         //          StreamReader
-        
+
         //Textové soubory lze zpracovávat jedině sekvenčně - od začátku do konce, při zpracování se nelze v souboru vracet.
         //Proto můžeme do textového souboru buďto zapisovat nebo z něj číst. Nelze obojí současně.
         private void button1_Click(object sender, EventArgs e)
@@ -47,16 +40,16 @@ namespace Soubory
 
             //streamWriter.Flush();
             streamWriter.Close();               //   MUST DO THIS !!!!!!!!!!!!!!!!!!!!!!!!!
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            StreamWriter streamWriter = new StreamWriter("Text.txt",true);
+            StreamWriter streamWriter = new StreamWriter("Text.txt", true);
             streamWriter.WriteLine("xxxxxxxxxxxxx");
 
             streamWriter.Close();
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -68,13 +61,13 @@ namespace Soubory
             StreamReader streamReader = new StreamReader("Text.txt");
             //while (!streamReader.EndOfStream)
             //{
-            //    string text = streamReader.ReadLine();       //// ZOBRAZI CELY text v listbox 
+            //    string text = streamReader.ReadLine();       //// ZOBRAZI CELY radek (text) v listbox 
             //    listBox1.Items.Add(text);
             //}
             while (!streamReader.EndOfStream)
             {
-                char c = (char)streamReader.Read();         // ZOBRAZI text PO PISMENECH v listbox 
-                listBox1.Items.Add(c);
+                char c = (char)streamReader.Read();         // ZOBRAZI text PO PISMENECH v listbox  
+                listBox1.Items.Add(c);                      // Read cte jen jedno pismeno a zastavi se
             }
 
             streamReader.Close();
@@ -86,12 +79,20 @@ namespace Soubory
             //Přečtené řádky budeme zobrazovat v listbox
 
             listBox1.Items.Clear();
+            StreamReader streamReader = new StreamReader("Text.txt");
+
+            while (!streamReader.EndOfStream)
+            {
+                string text = streamReader.ReadLine();       //// ZOBRAZI CELY radek (text) v listbox 
+                listBox1.Items.Add(text);                    //ReadLine precte radek a zastavi se
+            }
+            streamReader.Close();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            
-            
+
+
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -106,6 +107,23 @@ namespace Soubory
         {
             //(Vytvoříme prázdné textové soubory)
 
+            StreamWriter streamWriter = new StreamWriter("text1.txt");    // V AKTUALNI SLOZCE
+
+            streamWriter.Close();
+
+            streamWriter = new StreamWriter("..\\..\\text2.txt");
+            streamWriter.Close();
+
+            streamWriter = new StreamWriter("../../text3.txt");  
+            streamWriter.Close();
+
+            streamWriter = new StreamWriter(@"..\..\text4.txt");     // @  -  lomitka jsou jen obicejne lomitka
+            streamWriter.Close();
+
+            streamWriter = new StreamWriter(@"..\..\SOUBORY\text5.txt");    //zapise do konkretni slozky
+            streamWriter.Close();
+
+
             //Různé způsoby zápisu cesty: (Nelze jednoduše psát opačné lomítko)
             //Při programování aplikace používejte skoro vždy relativní cesty!!!
 
@@ -117,9 +135,26 @@ namespace Soubory
             //Soubor vybereme pomocí komponenty OpenFileDialog nebo SaveFileDialog
             //Tyto dialogy nic neotevírají ani neukládají, jen nám umožní vybrat soubor, ostatní musíme naprogramovat sami
 
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                listBox3.Items.Clear();
+                StreamReader streamReader = new StreamReader(openFileDialog1.FileName);
 
+                while (!streamReader.EndOfStream)
+                {
+                    string text = streamReader.ReadLine();
+                    listBox3.Items.Add(text);
+                }
+                streamReader.Close();
+            }
+            else
+            {
+                MessageBox.Show("Nebyl vybran zadny soubor");
+            }
 
             //Vyzkoušet jiný způsob obsloužení dialogu!!!!
+
+            //////////////////////////////////////////////////SaveFileDialog funguje skoro stejne xD
 
         }
 
