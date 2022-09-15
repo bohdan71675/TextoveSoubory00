@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Soubory
@@ -206,7 +207,27 @@ namespace Soubory
 
         private void button10_Click(object sender, EventArgs e)
         {
+            //Pokud neurcime kodovani, bude v Unicode
+            StreamWriter sw = new StreamWriter("KodovaniNeuceno.txt");
+            sw.WriteLine("Vizaz");
+            sw.WriteLine("presivany");
+            sw.Close();
 
+            //Trida Encoding
+            //***************
+
+            //Metoda GetEncoding - vrati kodovani zadane kodove stranky (kodovou stranku zadame kodem)
+
+            StreamWriter sw1250 = new StreamWriter("w1250.txt", false, Encoding.GetEncoding("windows-1250"));
+            sw.WriteLine("Vizaz");
+            sw.WriteLine("presivany");
+            sw.Close();
+
+
+            StreamWriter swDef = new StreamWriter("Default.txt", false, Encoding.Default);
+            sw.WriteLine("Vizaz");
+            sw.WriteLine("presivany");
+            sw.Close();
         }
     }
 }
