@@ -228,6 +228,26 @@ namespace Soubory
             sw.WriteLine("Vizaz");
             sw.WriteLine("presivany");
             sw.Close();
+
+
+            //Zapis obsahu ze vsech tri souboru do TextBox
+            //*****************************************************
+
+            StreamReader sr = new StreamReader("KodovaniNeurceno.txt");
+            textBox1.Text = "KODOVANI JSME NEURCILI" + "\r\n";
+            textBox1.Text += sr.ReadToEnd();
+            sr.Close();
+
+            sr = new StreamReader("W1250.txt");
+            textBox1.Text += "\r\nSOUBOR Windows1250\r\n";
+            textBox1.Text += sr.ReadToEnd();
+            sr.Close();
+
+            sr = new StreamReader("Default.txt");
+            textBox1.Text = "\r\nSOUBOR DEFAULTNI KODOVANI\r\n";
+            textBox1.Text += sr.ReadToEnd();
+            sr.Close();
+
         }
     }
 }
