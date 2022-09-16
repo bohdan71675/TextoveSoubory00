@@ -209,8 +209,8 @@ namespace Soubory
         {
             //Pokud neurcime kodovani, bude v Unicode
             StreamWriter sw = new StreamWriter("KodovaniNeuceno.txt");
-            sw.WriteLine("Vizaz");
-            sw.WriteLine("presivany");
+            sw.WriteLine("Vizaž");
+            sw.WriteLine("prešivany");
             sw.Close();
 
             //Trida Encoding
@@ -218,16 +218,16 @@ namespace Soubory
 
             //Metoda GetEncoding - vrati kodovani zadane kodove stranky (kodovou stranku zadame kodem)
 
-            StreamWriter sw1250 = new StreamWriter("w1250.txt", false, Encoding.GetEncoding("windows-1250"));
-            sw.WriteLine("Vizaz");
-            sw.WriteLine("presivany");
-            sw.Close();
+            StreamWriter sw1250 = new StreamWriter("W1250.txt", false, Encoding.GetEncoding("windows-1250"));
+            sw1250.WriteLine("Vizaž");
+            sw1250.WriteLine("prešivany");
+            sw1250.Close();
 
 
             StreamWriter swDef = new StreamWriter("Default.txt", false, Encoding.Default);
-            sw.WriteLine("Vizaz");
-            sw.WriteLine("presivany");
-            sw.Close();
+            swDef.WriteLine("Vizaž");
+            swDef.WriteLine("prešivany");
+            swDef.Close();
 
 
             //Zapis obsahu ze vsech tri souboru do TextBox
@@ -238,13 +238,13 @@ namespace Soubory
             textBox1.Text += sr.ReadToEnd();
             sr.Close();
 
-            sr = new StreamReader("W1250.txt");
+            sr = new StreamReader("W1250.txt", Encoding.GetEncoding(1250));
             textBox1.Text += "\r\nSOUBOR Windows1250\r\n";
             textBox1.Text += sr.ReadToEnd();
             sr.Close();
 
-            sr = new StreamReader("Default.txt");
-            textBox1.Text = "\r\nSOUBOR DEFAULTNI KODOVANI\r\n";
+            sr = new StreamReader("Default.txt", Encoding.Default);
+            textBox1.Text += "\r\nSOUBOR DEFAULTNI KODOVANI\r\n";
             textBox1.Text += sr.ReadToEnd();
             sr.Close();
 
